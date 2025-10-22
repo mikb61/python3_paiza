@@ -63,3 +63,18 @@ print("サイコロの目は" + str(number) + "です。")
 ｜ * / %
 低い + -
 
+
+import random
+number = random.randint(1, 10)	# 匹数 1 ～ 10
+print("体重100キロのスライムが" + str(number) + "匹あらわれた")
+# 合計体重 = 匹数 x 100
+print("スライムの合計体重は" + str(number * 100) + "キロです")
+
+
+a = "01234"
+b = "56789"
+print(a + b)  # 0123456789
+
+a = 1234
+b = 56789
+print(a + b)  # 58023
