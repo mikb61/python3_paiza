@@ -1,0 +1,64 @@
+# coding: utf-8
+# if文による条件分岐
+number = 1
+if number == 1:
+    print( "スキ！")  #条件式が成立したときの処理
+else:
+    print( "キライ")  #条件式が成立しなかったときの処理
+
+
+# if文による条件分岐
+import random
+number = random.randint(1,3) * 100
+print("あなたの得点は" + str(number) + "ポイントです")
+if number == 300:
+    print("おめでとう")
+else:
+    print("ざんねん")
+
+
+# if文による条件分岐
+number = 1
+if 条件式1:
+    print( "スキ！")  #条件式1が成立したときの処理
+elif 条件式2:
+    print( "どちらでもない")  #条件式2が成立したときの処理
+else:
+    print( "キライ")  #条件式がどれも成立しなかったときの処理
+
+  
+# if文による条件分岐
+import random
+number = random.randint(1, 5)
+print("あなたの順位は" + str(number) + "位です")
+if number == 1:
+	print("おめでとう")
+elif number == 2:
+	print("あと少し")
+else:
+	print("よくがんばったね")
+
+  
+# 比較演算子
+利用例	  意味	              真になる例
+a < b	  a が b よりも小さい	10 < 15
+a > b	  a が b よりも大きい	10 > 7
+a <= b	a が b 以下である	  10 <= 15
+a >= b	a が b 以上である	  10 >= 7
+a != b	a と b が等しくない	10 != 1
+
+  
+#print関数で改行したくない場合
+① 文字列を「,」で区切る
+この場合、出力された文字列は、スペースで区切られる
+
+print("<h1>hello world</h1>", "<p>世界の皆さん、", "<b>こんにちは</b></p>")
+
+② カッコの中に「, end=""」を追加する
+
+print("<h1>hello world</h1>", end="")
+print("<p>世界の皆さん、", end="")
+print("<b>こんにちは</b></p>", end="")
+
+→どちらも
+# <h1>hello world</h1> <p>世界の皆さん、 <b>こんにちは</b></p>
