@@ -75,3 +75,31 @@ else:
 # デバッグ(debug) 
 プログラムの不具合・欠陥を発見および修正し、正常に動作させるための作業全般のこと
 このような、プログラム上の不具合・欠陥をバグ(bug)と呼ぶ
+
+
+# coding: utf-8
+import random
+omikuji = random.randint(1, 100)
+
+if omikuji >= 30:
+	print("omikujiの中身は" + str(omikuji) + "なので大吉")
+else:
+	print("omikujiの中身は" + str(omikuji) + "なので大凶")
+
+# today関数：現在の日付を返す
+平成年から西暦年を求めるには、平成年に「1988」を足す
+　例) 平成1年に「1988」を足すと、1989 > 平成1年は1989年。
+
+西暦年から平成年を求めるには、これとは逆に、西暦年から「1988」を引く
+例) 西暦1991年から「1988」を引くと、3 > 1991年は平成3年。
+
+西暦年から1925を引くと昭和年が求められる
+西暦年から2018を引くと令和年が求められる
+
+# coding: utf-8
+# 西暦を昭和年に変換
+import random
+seireki = random.randint(1926, 1988)  # 西暦年
+print("西暦" + str(seireki) + "年は", end = "")
+showa = seireki - 1925 # 昭和年を計算
+print("昭和" + str(showa) + "年です")  # 昭和年を出力
