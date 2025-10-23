@@ -62,3 +62,16 @@ print("<b>こんにちは</b></p>", end="")
 
 →どちらも
 # <h1>hello world</h1> <p>世界の皆さん、 <b>こんにちは</b></p>
+
+
+import random
+place = random.randint(1, 12)    #placeに、何位かを1~12でランダムに代入
+print(str(place) + "位", end="")
+if place <= 6:
+    print("入賞")   # 条件が成り立ったときの処理
+else:
+    print("入賞圏外")   # それ以外だったときの処理
+
+# デバッグ(debug) 
+プログラムの不具合・欠陥を発見および修正し、正常に動作させるための作業全般のこと
+このような、プログラム上の不具合・欠陥をバグ(bug)と呼ぶ
