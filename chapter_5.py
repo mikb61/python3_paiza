@@ -142,3 +142,25 @@ print(sorted(math.items()))
 →
 [('あだち', 40), ('いいだ', 12), ('えんどう', 99)]
 
+
+# 画像用辞書
+items_imges = {
+    "剣" : "http://paiza.jp/learning/images/sword.png",
+    "盾" : "http://paiza.jp/learning/images/shield.png",
+    "回復薬" : "http://paiza.jp/learning/images/potion.png",
+    "クリスタル" : "http://paiza.jp/learning/images/crystal.png"
+}
+
+num = int(input())
+for i in range(num):
+    print("<img src='" + items_imges[input().rstrip()] + "'>")
+(入力)
+6
+回復薬
+盾
+クリスタル
+クリスタル
+剣
+剣
+→
+アイコンが横に６個並ぶ
