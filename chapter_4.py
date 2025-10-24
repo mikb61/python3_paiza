@@ -194,3 +194,42 @@ print(line[attack] + 'に会心の一撃!' + line[attack] + "を倒した！")
 魔王が現れた！
 敵は4匹
 モンスターに会心の一撃!モンスターを倒した！
+
+
+# coding: utf-8
+# じゃんけんプログラム
+import random
+# 標準入力から1行取得
+line = input().rstrip()
+# カンマで分割して、リストに代入
+janken = line.split(",")
+# リストの要素数を変数に代入
+num = len(janken)
+# リストの中身を出力
+print(janken)
+# ランダムに選んだリストの要素を出力
+print(janken[random.randrange(num)])
+(入力)
+グー,チョキ,パー
+→
+['グー', 'チョキ', 'パー']
+パー
+
+
+# coding: utf-8
+# おみくじプログラム
+import random
+line = input().rstrip()
+# カンマで分割して、リストに代入
+omikuji = line.split(",")
+# リストの要素数を変数に代入
+num = len(omikuji)
+# リストの中身を出力
+print(omikuji)
+# ランダムに選んだリストの要素を出力
+print(omikuji[random.randrange(num)])
+(入力)
+大吉,中吉,吉,凶
+→
+['大吉', '中吉', '吉', '凶']
+吉
