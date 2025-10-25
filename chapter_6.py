@@ -45,3 +45,38 @@ del basket[2][2]
 print(basket)
 →
 [['木の棒', 'こん棒', 'エクスカリバー'], ['おにぎり', 'おにぎり', 'むぎ茶'], ['毒消し', '薬草']]
+
+
+
+# enumerate()
+ループで要素と番号を同時に取り出す
+「エニュメレート」は “番号をふる” の意味
+
+for i, item in enumerate(["りんご", "みかん", "ぶどう"]):
+    print(i, item)
+→
+0 りんご
+1 みかん
+2 ぶどう
+
+for i, item in enumerate(["りんご", "みかん", "ぶどう"], start=1):
+    print(i, item)
+→
+1 りんご
+2 みかん
+3 ぶどう
+
+
+# ループでリストを処理する
+team = ["勇者", "戦士", "魔法使い"]
+print(team)
+print(team[0])
+
+for (i, person) in enumerate(team, start = 1):
+    print(str(i) + '番目の' + person + 'がスライムと戦った')
+    
+numbers = [3, 1, 4, 1, 5]
+results = []
+for item in numbers:
+    results.append(item * 10)
+print(results)
