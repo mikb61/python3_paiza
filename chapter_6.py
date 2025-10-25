@@ -310,17 +310,15 @@ for i,line in enumerate(landmap):
 
 # 標準入力から2次元リスト
 enemy_img = []
-while True:
-    line = input()
-    if line == "_":
-        break
+while True:　　　　　→ 無限ループ。ずーっと繰り返す。
+    line = input()　→ ユーザーから1行入力を受け取る。
+    if line == "_":　
+        break　　　　→ 入力が "_" だったらループを抜ける（終了）。
     enemy_img.append(line.split(","))
-# print(enemy_img)
-
 
 for line in enemy_img:
     for dot in line:
-        if int(dot) == 1:　　　　　#標準入力からは文字列になっているので、数値に変換！
+        if int(dot) == 1:　　　　　→ 標準入力からは文字列になっているので、数値に変換！
             print("#", end="")
         else:
             print(" ", end="")
