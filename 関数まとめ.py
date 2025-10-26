@@ -88,7 +88,8 @@ def greet(name):
     print(f"Hello, {name}!")
 
 print(greet.__doc__)
-
+→
+名前を受け取り挨拶を表示する関数
 
 9. 型ヒント
 def add(a: int, b: int) -> int:
@@ -121,3 +122,191 @@ def add(a: int, b: int) -> int:
 | 再帰             | 関数内で自分呼び出し | 自己呼び出し           |
 | docstring        | """説明"""         | 関数の説明文            |
 | 型ヒント         | a:int -> int       | 型を明示                |
+
+
+
+⭐️おまけ
+# map関数
+リストなどの各要素に関数を適用して、新しいイテラブルを作る関数
+
+map(関数, リスト)
+結果は mapオブジェクト になるから、リストに変換して使うことが多い。
+
+
+def square(x):
+    return x**2
+nums = [1, 2, 3, 4, 5]
+squared = list(map(square, nums))
+print(squared)  # [1, 4, 9, 16, 25]
+
+①
+nums = [1, 2, 3, 4, 5]
+squared = list(map(lambda x: x**2, nums))
+print(squared)  # [1, 4, 9, 16, 25]
+
+②
+words = ["apple", "banana", "cherry"]
+word_len = lambda x: len(x)
+result = list(map(word_len, words))
+print(result)  # [5, 6, 6]
+
+③
+nums = [1, -2, 3, -4, 5]
+absolute = lambda x: x if x >= 0 else -x
+result = list(map(absolute, nums))
+print(result)  # [1, 2, 3, 4, 5]
+
+⭐️三項演算子（条件式）
+<値1> if <条件> else <値2>
+	•	条件が True のとき → <値1> が返る
+	•	条件が False のとき → <値2> が返る
+
+x = 5
+result = "正" if x > 0 else "負"
+print(result)  # 正
+
+x = -3
+result = "正" if x > 0 else "負"
+print(result)  # 負
+
+x = -7
+abs_val = x if x >= 0 else -x
+print(abs_val)  # 7
+
+
+⭐️リスト内包表記
+[ 変換したい値  for 元の要素 in 元リスト  if 条件 ]
+	•	変換したい値 → x をそのままにするか、x*2 とかで変換もできる
+	•	元の要素 → ループで取り出す値
+	•	条件 → 取り出すかどうかのフィルター
+
+# 普通の書き方
+result = []
+for x in [1, 2, 3, 4, 5]:
+    if x % 2 == 0:      # 偶数だけ取り出す
+        result.append(x)
+print(result)  # [2, 4]
+
+これをリスト内包表記にすると：
+result = [x for x in [1, 2, 3, 4, 5] if x % 2 == 0]
+print(result)  # [2, 4]
+
+
+nums = [3, -1, 4, -2, 5]
+double_positive = lambda x: x*2 if x > 0 else 0
+result = list(map(double_positive, nums))
+result = [x for x in result if x != 0]
+print(result)  # [6, 8, 10]
+
+①　 nums = [1, 2, 3, 4, 5] の 各要素を3倍したリスト
+nums = [1, 2, 3, 4, 5]
+result = [num*3 for num in nums]
+print(result)  # [3, 6, 9, 12, 15]
+
+nums = [1, 2, 3, 4, 5]
+result = list(map(lambda x: x*3, nums))
+print(result)  # [3, 6, 9, 12, 15]
+
+②　 nums = [1, 2, 3, 4, 5] から 偶数だけを取り出したリスト
+nums = [1, 2, 3, 4, 5]
+result = [num for num in nums if num % 2 == 0]
+print(result)  # [2, 4]
+
+nums = [1, 2, 3, 4, 5]
+result = list(filter(lambda x: x % 2 == 0, nums))
+print(result)  # [2, 4]
+
+③ リスト words = ["cat", "dog", "apple", "hi", "banana"] から 文字列の長さを2倍したリスト 
+words = ["cat", "dog", "apple", "hi", "banana"]
+result = [len(word)*2 for word in words]
+print(result)  # [6, 6, 10, 4, 12]
+
+words = ["cat", "dog", "apple", "hi", "banana"]
+result = list(map(lambda w: len(w)*2, words))
+print(result)  # [6, 6, 10, 4, 12]
+
+
+💡 内包表記と map/filter の関係：
+	•	[処理 for x in リスト] → map(lambda x: 処理, リスト)
+	•	[x for x in リスト if 条件] → filter(lambda x: 条件, リスト)
+
+
+🔹 filter関数
+条件を満たす要素だけ取り出す関数
+filter(関数, イテラブル)
+	•	関数は True/False を返す必要がある
+	•	イテラブルはリストやタプルなど
+　
+①　偶数だけ 
+nums = [1, 2, 3, 4, 5]
+result = filter(lambda x: x % 2 == 0, nums)
+print(list(result))  # [2, 4]
+
+② 長さ >= 4 の単語だけ取り出す
+words = ["cat", "dog", "apple", "hi", "banana"]
+result = list(filter(lambda word : len(word) >= 4 , words))
+print(result)  # 期待される出力: ["apple", "banana"]
+
+③　20以上の数だけ
+nums = [5, 12, 17, 20, 25, 30]
+result = list(filter(lambda x: x >= 20, nums))
+print(result)  # [20, 25, 30]
+
+
+⭐️アンパック
+リストやタプル、辞書の中身をバラバラにして関数に渡す
+
+① * は「リストやタプルの中身をバラす」
+words = ["spam", "ham", "eggs"]
+print(*words)
+= print("spam", "ham", "eggs")
+→
+spam ham eggs
+
+②　** は「辞書の中身をキーワード引数にして渡す」
+options = {"sep": "&", "end": "!"}
+print("spam", "ham", "eggs", **options)
+= print("spam", "ham", "eggs", sep="&", end="!")
+→
+spam&ham&eggs!
+
+
+words = ["spam", "ham", "eggs"]
+options = {"sep": "&"}
+print(*words, **options)
+= print("spam", "ham", "eggs", sep="&")
+→
+spam&ham&eggs
+
+
+⭐️リストとタプルの違い
+# 🐍 タプルとリストの違いまとめ
+| 特徴 　　　| リスト（list） 　　| タプル（tuple） |
+|------　　　|----------------|----------------|
+| 定義の仕方 | `[]`（角かっこ） | `()`（丸かっこ） |
+| 変更　　　 | ✅ できる（追加・削除・変更OK） | ❌ できない（不変） |
+| 速度 　　　| 少し遅い | 少し速い（固定長のため） |
+| 使う場面 　| データを更新する場合 | データを固定して扱う場合 |
+| 例　　　　 | `[1, 2, 3]` | `(1, 2, 3)` |
+
+	
+📚 タプルの特徴（immutable：変更不可）
+	•	作ったあとで「要素の追加・削除・変更」ができません。
+	•	そのため、安全に固定データを扱いたいとき に使います。
+	•	例：座標、RGB値、設定情報など。
+	•	要素が1つだけのタプルは、カンマが必要！
+point = (10, 20)
+print(point[0])  # 10
+x = (5)     # これはただの数値
+y = (5,)    # これはタプル！
+print(type(x))  # <class 'int'>
+print(type(y))  # <class 'tuple'>
+
+
+🛠 リストの特徴（mutable：変更可能）
+	•	要素を 追加・削除・並べ替え できます。
+	•	よく使うメソッド：
+nums = [1, 2, 3]
+nums.append(4)    # [1, 2, 3, 4]
+nums.remove(2)    # [1, 3, 4]
+nums.sort()       # [1, 3, 4]
