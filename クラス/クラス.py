@@ -240,3 +240,47 @@ class MyClass:
  なぜ便利？
 	1.	インスタンスを作らなくても呼べる → クラス全体の情報を扱える
 	2.	継承時に便利 → サブクラスでも cls は自分のクラスを指す
+
+
+
+class Hero:
+
+    total_heroes = 0
+
+    def __init__(self, name, hp, mp):
+        self.name = name
+        self.hp = hp
+        self.mp = mp
+        Hero.total_heroes += 1
+
+    def attack(self, target, damage):
+        target.hp -= damage
+        if target.hp <= 0:
+            target.hp = 0
+            print(f"{target.name}は倒れた")
+
+    def show_status(self):
+        print(self.name, self.hp, self.mp)
+
+    @classmethod
+    def show_total_heroes(cls):
+        print(cls.total_heroes)
+
+
+class Mage(Hero):
+
+    def attack(self, target, damage):
+        print(f"{self.name}は魔法で攻撃！")
+	    super().attack(target, damage)  # 元の Hero.attack() を呼ぶ
+          もしくは、
+		target.hp -= damage
+        if target.hp <= 0:
+            target.hp = 0
+            print(f"{target.name}は倒れた")
+
+    def use_magic(self, cost):
+        if self.mp >= cost:
+            self.mp -= cost
+            print(f"{self.name}は魔力を{cost}消費した")
+        else:
+            print("魔力不足")
