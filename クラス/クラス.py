@@ -179,3 +179,64 @@ class Character:
 
     def status(self):
         print(self.name, self.hp, self.mp)
+
+
+
+
+
+class Hero:
+
+    total_heroes = 0
+
+    def __init__(self, name, hp, mp):
+        self.name = name
+        self.hp = hp
+        self.mp = mp
+        self.inventory = []
+        Hero.total_heroes += 1
+
+    def attack(self, target, damage):
+        target.hp -= damage
+        if target.hp <= 0:
+            target.hp = 0
+            print(f"{target.name}は倒れた")
+
+    def heal(self, amount):
+        self.hp += amount
+
+    def use_magic(self, cost):
+        if self.mp >= cost:
+            self.mp -= cost
+        else:
+            print("魔力不足")
+
+    def pick_item(self, item):
+        self.inventory.append(item)
+
+    def show_status(self):
+        print(self.name, self.hp, self.mp, self.inventory)
+
+    @classmethod
+    def show_total_heroes(cls):
+        print(cls.total_heroes)
+
+
+
+1. クラスメソッドとは？
+	•	通常のメソッドは インスタンスを操作 → self が最初の引数
+	•	クラスメソッド は クラス自体を操作 → cls が最初の引数
+	•	デコレーター @classmethod をつける
+
+class MyClass:
+    count = 0  # クラス変数
+
+    def __init__(self):
+        MyClass.count += 1
+
+    @classmethod
+    def show_count(cls):
+        print(cls.count)
+
+ なぜ便利？
+	1.	インスタンスを作らなくても呼べる → クラス全体の情報を扱える
+	2.	継承時に便利 → サブクラスでも cls は自分のクラスを指す
