@@ -123,3 +123,31 @@ class サブクラス名(クラス名1, ..., クラス名2):
 
 「処理」のところは、普段クラスを定義するときと同様に、メソッドなどを書く
 サブクラスで定義するメソッドの名前は、スーパークラスで定義してあるメソッドの名前と同じでもよい
+
+
+⭐️chatGPTの練習問題
+
+class BankAccount:
+
+    def __init__(self, owner, balance):
+        self.owner = owner
+        self.balance = balance
+
+    def deposit(self, amount):
+        self.balance += amount
+
+    def withdraw(self, amount):
+        if self.balance >= amount:
+            self.balance -= amount
+        else:
+            print("残高不足")
+
+    def transfer(self, amount, other_account):
+        if self.balance >= amount:
+            self.withdraw(amount)
+            other_account.deposit(amount)
+        else:
+            print("残高不足")
+
+    def show_balance(self):
+        print(self.balance)
