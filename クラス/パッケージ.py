@@ -50,3 +50,35 @@ module2.func2()
 	•	パッケージ = 「本棚」
 	•	サブパッケージ = 「本棚の引き出し」
 	•	import は「本棚から本を取り出すこと」、from … import … は「本棚から本の特定の章だけ取り出すこと」
+
+
+
+＿＿＿＿＿＿＿＿＿＿＿
+
+1. サブモジュールとは？
+	•	サブモジュール = パッケージの中にあるモジュール
+	•	つまり、あるパッケージ内の Python ファイル (*.py) を指します
+	•	サブモジュールは 親パッケージと同じ階層にある他のモジュールと同じ扱い です
+
+例
+mypackage/                ← パッケージ
+    __init__.py
+    module1.py            ← サブモジュール
+    module2.py            ← サブモジュール
+    subpackage/           ← サブパッケージ
+        __init__.py
+        module3.py        ← サブモジュール
+
+	•	module1.py と module2.py は mypackage のサブモジュール
+	•	module3.py は mypackage.subpackage のサブモジュール
+
+
+2. 同じパッケージ内のモジュールを使う場合
+相対インポートが可能
+
+# module1.py から module2.py を使う場合
+from . import module2    # module2は同じmypackage内
+module2.func2()
+
+	•	. は 同じパッケージ内 を指す
+	•	サブパッケージ内なら .. で 1階層上のパッケージ を指すことも可能
