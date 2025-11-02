@@ -151,3 +151,31 @@ class BankAccount:
 
     def show_balance(self):
         print(self.balance)
+
+
+
+
+class Character:
+
+    def __init__(self, name, hp, mp):
+        self.name = name
+        self.hp = hp
+        self.mp = mp
+
+    def attack(self, target, damage):
+        target.hp -= damage
+        if target.hp <= 0:
+            target.hp = 0  # 倒れたら負の値を防ぐ
+            print(f"{target.name}は倒れた")
+
+    def heal(self, amount):
+        self.hp += amount
+
+    def use_magic(self, cost):
+        if self.mp >= cost:
+            self.mp -= cost
+        else:
+            print("魔力不足")
+
+    def status(self):
+        print(self.name, self.hp, self.mp)
