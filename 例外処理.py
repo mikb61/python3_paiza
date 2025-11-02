@@ -108,3 +108,27 @@ class InputValueError(Exception):
     pass
 
 raise InputValueError("入力値は整数値でなければなりません。")
+
+
+
+try:
+    # 例外が発生するかもしれない処理
+    x = int(input("数字を入力してください: "))
+    print(10 / x)
+except ValueError:
+    # ValueError が発生したときの処理
+    print("数字を入力してください！")
+except ZeroDivisionError:
+    # 0で割ろうとしたときの処理
+    print("0では割れません！")
+else:
+    # 例外が発生しなかった場合の処理
+    print("計算成功！")
+finally:
+    # 例外の有無に関わらず必ず実行される処理
+    print("処理終了")
+
+	•	try：例外が発生する可能性のある処理
+	•	except：例外が発生した場合の処理
+	•	else：例外が発生しなかった場合の処理
+	•	finally：必ず実行される処理（後片付けなどに使う）
