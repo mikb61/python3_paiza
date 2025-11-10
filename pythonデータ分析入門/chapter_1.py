@@ -235,3 +235,39 @@ print(s[(s > 2) & (s < 7)])
 →
 b    4
 dtype: int64
+
+
+⭐️ソート
+import pandas as pd
+
+s = pd.Series({"b": 3, "c": 1, "a": 2})
+
+# インデックスによるソート
+print(s.sort_index())  # 昇順
+→
+a    2
+b    3
+c    1
+dtype: int64
+
+print(s.sort_index(ascending=False))  # 降順
+→
+c    1
+b    3
+a    2
+dtype: int64
+
+# 値によるソート
+print(s.sort_values())  # 昇順
+→
+c    1
+a    2
+b    3
+dtype: int64
+
+print(s.sort_values(ascending=False))  # 降順
+→
+b    3
+a    2
+c    1
+dtype: int64
