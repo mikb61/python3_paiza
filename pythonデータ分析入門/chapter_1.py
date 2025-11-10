@@ -177,3 +177,61 @@ print(s)
 1    1.0
 2    2.0
 Name: nums, dtype: float64
+
+
+⭐️フィルタリング
+# Seriesとスカラーの比較演算
+import pandas as pd
+
+s = pd.Series({"a": 3, "b": 1, "c": 2})
+print(s > 1)
+→
+a     True
+b    False
+c     True
+dtype: bool
+
+# bool値のSeriesによるフィルタリング
+print(s[s > 1])
+→
+a    3
+c    2
+dtype: int64
+
+# Series同士のビット演算
+p = pd.Series([True, True, False])
+q = pd.Series([True, False, False])
+
+print(p & q)
+→
+0     True
+1    False
+2    False
+dtype: bool
+
+print(p | q) # or
+→
+0     True
+1     True
+2    False
+dtype: bool
+
+print(~p)　# not
+→
+0    False
+1    False
+2     True
+dtype: bool
+
+# 複数条件のフィルタリング
+t = pd.Series([3, 5, 15])
+print(t[(t % 3 == 0) & (t % 5 == 0)])
+→
+2    15
+dtype: int64
+
+s = pd.Series({"a": 1, "b": 4, "c": 7})
+print(s[(s > 2) & (s < 7)])
+→
+b    4
+dtype: int64
