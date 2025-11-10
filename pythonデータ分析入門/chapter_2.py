@@ -217,3 +217,61 @@ print(df)
    num string
 a    3  paiza
 b    1  daiza
+
+
+⭐️行・列・セルの参照
+
+import pandas as pd
+
+s = pd.Series({"a": 3, "b": 1})
+t = pd.Series({"a": "paiza", "c": "daiza"})
+df = pd.DataFrame({"num": s, "string": t})
+
+# 列名による列の参照
+print(df["num"])
+
+# 属性による列の参照
+print(df.num)
+ 属性参照によって列を参照する場合、列名はPythonの変数名として適切なものになっている必要がある。
+ たとえば`"paiza.io"`を列名とした場合、属性参照を用いることはできない（ドットの手前で意図せず区切られてしまう）。
+ この場合でも列名による参照は可能。
+→
+a    3.0
+b    1.0
+c    NaN
+Name: num, dtype: float64
+
+# loc属性による行の参照
+print(df.loc["b"])
+
+
+# iloc属性による行の参照
+print(df.iloc[1])
+
+→
+num       1.0
+string    NaN
+Name: b, dtype: object
+
+
+# at属性によるセルの参照
+print(df.at["a", "string"])
+
+# iat属性によるセルの参照
+print(df.iat[0, 1])
+
+→
+paiza
+
+# at属性によるセルの更新
+df.at["a", "string"] = "pizza"
+
+# iat属性によるセルの更新
+df.iat[0, 1] = "pizza"
+
+print(df)
+→
+   num string
+a  3.0  pizza
+b  1.0    NaN
+c  NaN  daiza
