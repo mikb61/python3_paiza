@@ -1,0 +1,265 @@
+# 🧾 PEP 8：Pythonコーディングスタイルガイド（完全まとめ）
+
+Python公式のスタイルガイド。読みやすく・保守しやすいコードを書くためのルールを簡潔にまとめたもの。
+このファイルはそのままコピーして利用できます。
+
+---
+
+## 目次
+1. 基本（インデント・行長・空行）
+2. 命名規則
+3. 空白（whitespace）の使い方
+4. インポート規則
+5. 文字列・docstring・コメント
+6. 比較・条件式
+7. 関数・引数・戻り値
+8. クラス・メソッド・継承
+9. 例外処理
+10. リスト内包表記・ジェネレータ
+11. 型ヒント（typing）
+12. ツール・自動整形
+13. 実例（Before / After）
+14. チェックリスト
+
+---
+
+## 1. 基本（インデント・行長・空行）
+**インデント**
+- スペース4つを使う（タブは使わない）。
+- 例（インデントはスペース4つ）：
+    def func():
+        print("hello")
+
+**行の長さ**
+- 原則 **79文字以内**。ドキュメント文字列やコメントは **72文字以内** が目安。
+- 長い式は括弧 `()` `[]` `{}` で折り返す（バックスラッシュ `\` は避ける）。
+- 例（括弧で折り返す）：
+    result = (
+        first_value + second_value
+        - third_value
+    )
+
+**空行**
+- トップレベル関数・クラスの間は **2行** 空ける。
+- クラス内メソッド間は **1行** 空ける。
+- ロジックの区切りには適度に空行を入れる（読みやすさ優先）。
+
+---
+
+## 2. 命名規則 (Naming Conventions)
+- **関数・変数**: `lower_case_with_underscores`（スネークケース）
+- **クラス**: `CapWords`（PascalCase / CapWords）
+- **定数**: `ALL_CAPS_WITH_UNDERSCORES`
+- **モジュール/パッケージ**: 小文字、短め（必要ならアンダースコア）
+- **プライベート**: `_single_leading_underscore`（非公開を示す）
+- **強い内部名**: `__double_leading_underscore`（名前修飾）
+- 例：
+    MAX_SIZE = 100
+
+    class BankAccount:
+        def deposit(self, amount):
+            pass
+
+    def compute_total_price(items):
+        pass
+
+---
+
+## 3. 空白の使い方（Whitespace Rules）
+- 代入や演算子の前後に適切なスペースを入れる（過剰は避ける）。
+- 例：
+    # OK
+    x = 1
+    y = x + 2
+
+    # NG
+    x=1
+    y = x+2
+
+- カンマ `,`、コロン `:`、セミコロン `;` の後にはスペースを入れる。
+- 関数定義のデフォルト引数では `=` の周りにスペースを入れない（`def func(a=1)`）。
+- 括弧の直後・直前にスペースを入れない：
+    # OK
+    spam(ham[1], {eggs: 2})
+
+    # NG
+    spam( ham[ 1 ], { eggs: 2 } )
+
+---
+
+## 4. インポート規則
+- ファイルの先頭にまとめる（モジュールの docstring → 標準ライブラリ → サードパーティ → ローカル）。
+- グループごとに空行を入れる。
+- 1行に複数のモジュールをカンマでまとめて import しない。
+- 例：
+    # OK
+    import os
+    import sys
+
+    # サードパーティ
+    import requests
+
+    # ローカル
+    from . import my_module
+
+- 長い import は括弧で折り返す：
+    from package.subpackage import (
+        ClassA, ClassB, function_c,
+    )
+
+---
+
+## 5. 文字列・docstring・コメント
+**docstring**
+- 関数・クラス・モジュールには docstring を付ける（`"""Triple double quotes"""` 推奨）。
+- 1行で済む docstring は1行で。複数行の場合は概要 → 空行 → 詳細。
+- 例：
+    def add(a, b):
+        """Add two numbers and return the result."""
+        return a + b
+
+**コメント**
+- 「何をしているか」ではなく **なぜそうしているか** を書く。
+- `#` の後は1スペース空ける。
+- コメントはコードの上か右側（右側は短めに）。
+- 例：
+    # 再試行を行う（外部APIの一時的不具合対応）
+    retry_connect()
+
+---
+
+## 6. 比較・条件式
+- `None` と比較する場合は `is` / `is not` を使う（`==` は避ける）。
+- 例：
+    if value is None:
+        ...
+
+- 真偽値チェックは `if x:` / `if not x:` を使う（`if x == True` は不要）。
+- 多値比較は連鎖可能：
+    if 0 < x < 10:
+        ...
+
+---
+
+## 7. 関数・引数・戻り値
+- 引数が多くなる場合は縦に並べて可読性を確保する。
+- デフォルト引数に可変オブジェクト（`[]`, `{}`）を使わない。`None` を使って内部で初期化する。
+- 例：
+    def func(items=None):
+        if items is None:
+            items = []
+
+- 関数は単一責任を保つ。長すぎたら分割する。
+- 戻り値は明示的にする（`return` がない場合は `None` を返す意図を確認）。
+
+---
+
+## 8. クラス・メソッド・継承
+- クラス名は CapWords。継承は明示的に書く（Python 3では `class C:` でも可）。
+- メソッドの順序の例（慣例）：
+  1. `__init__`
+  2. 主要なインスタンスメソッド
+  3. 特殊メソッド（`__str__`, `__repr__`, `__eq__` など）
+  4. プライベートヘルパー
+- クラス変数とインスタンス変数を区別する。
+- `@classmethod`、`@staticmethod` は役割が明確なときに使う。
+- 例：
+    class MyClass:
+        CLASS_VAR = 1
+
+        def __init__(self, value):
+            self.value = value
+
+        @classmethod
+        def from_value(cls, v):
+            return cls(v)
+
+        @staticmethod
+        def util(x):
+            return x * 2
+
+---
+
+## 9. 例外処理
+- できるだけ具体的な例外を捕捉する（`except Exception:` は広すぎる）。
+- 例外を握りつぶすのは原則ダメ。ログを残す、再スローするなど明確に処理する。
+- 例：
+    try:
+        process()
+    except ValueError as e:
+        logger.error("処理失敗: %s", e)
+        raise
+
+---
+
+## 10. リスト内包表記・ジェネレータ
+- 簡潔なリスト内包表記は推奨。ただし複雑になったら普通の for に。
+- 例：
+    squares = [x*x for x in range(10)]
+
+- 大きなデータはジェネレータ式を使う（メモリ効率）。
+    sum(x*x for x in range(1000000))
+
+---
+
+## 11. 型ヒント（Typing）
+- 型ヒントは可読性と保守性に有用。PEP 484 準拠で書く。
+- 例：
+    from typing import List, Optional
+
+    def greet(name: str) -> str:
+        return f"Hello, {name}"
+
+    def find_user(id: int) -> Optional[str]:
+        ...
+
+- 長い型注釈は `from __future__ import annotations` を使ったり、型エイリアスで整理する。
+
+---
+
+## 12. ツール・自動整形
+- 推奨ツール：
+  - `black`（コードフォーマッタ、自動で整形）
+  - `flake8`（静的解析）
+  - `isort`（import 並び替え）
+- CI に組み込んで一貫性を保つのが便利。
+- 例コマンド：
+    pip install black flake8 isort
+    black .
+    flake8 my_project
+    isort my_project
+
+---
+
+## 13. 実例（Before / After）
+**NG（不可読）**
+    def f(x,y):return x+ y
+
+**OK（改善）**
+    def add(x, y):
+        """Return sum of x and y."""
+        return x + y
+
+---
+
+## 14. チェックリスト（導入時に確認するポイント）
+- [ ] インデントはスペース4つ
+- [ ] 行は79文字以内（コメントは72文字以内）
+- [ ] 関数・変数はスネークケース、クラスはCapWords
+- [ ] importはファイル先頭、グループ分け（標準→サードパーティ→ローカル）
+- [ ] docstring を書く（関数・クラス・モジュール）
+- [ ] コメントは「なぜ」を書く（どうでもよいコメントは削る）
+- [ ] 例外は具体的に捕捉し、握りつぶさない
+- [ ] 自動整形ツール（black等）を導入する
+
+---
+
+## 参考
+- PEP 8 原文（英語）: https://peps.python.org/pep-0008/
+- 関連ツール: black, flake8, isort, pylint
+
+---
+
+### 備考
+- プロジェクト独自のルール（細かい例外や許容）は `CONTRIBUTING.md` や `pyproject.toml` にまとめておくとチームで守りやすいです。
+- もっと短い「よく使う部分だけのサマリ」や、`Before/After` 比較をさらに多数作ることもできます。必要なら出すね。
