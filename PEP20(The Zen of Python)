@@ -1,0 +1,75 @@
+# 🧘 The Zen of Python（Pythonの禅）
+
+Pythonの設計思想を示した格言集。  
+`import this` を実行すると表示される。
+
+---
+
+**1. Beautiful is better than ugly.**  
+美しいコードは醜いコードに勝る。  
+→ 読みやすく、整ったコードを書こう。
+
+**2. Explicit is better than implicit.**  
+暗黙より明示的が良い。  
+→ 何をしているのかが明確なコードに。
+
+**3. Simple is better than complex.**  
+複雑より単純が良い。  
+→ シンプルで理解しやすく。
+
+**4. Complex is better than complicated.**  
+入り組んだ複雑さより、秩序ある複雑さを。  
+→ 複雑さは避けられない場合も、整理しておく。
+
+**5. Flat is better than nested.**  
+ネストよりフラットが良い。  
+→ ネストを浅くして可読性を上げよう。
+
+**6. Sparse is better than dense.**  
+詰め込みよりゆとりが良い。  
+→ 適度な空行やインデントで読みやすく。
+
+**7. Readability counts.**  
+読みやすさは大事。  
+→ 自分以外が読んでも理解できるコードを。
+
+**8. Special cases aren’t special enough to break the rules.**  
+特別扱いはルールを壊すほどの理由にはならない。  
+
+**9. Although practicality beats purity.**  
+ただし、実用性が純粋さに勝ることもある。  
+
+**10. Errors should never pass silently.**  
+エラーは黙って通過すべきでない。  
+
+**11. Unless explicitly silenced.**  
+ただし、意図的に握りつぶすならOK。  
+
+**12. In the face of ambiguity, refuse the temptation to guess.**  
+曖昧なときは、推測せず明確にしよう。  
+
+**13. There should be one— and preferably only one —obvious way to do it.**  
+やり方は1つ（理想的には1つだけ）であるべき。  
+
+**14. Although that way may not be obvious at first unless you’re Dutch.**  
+（ただしグイド（Pythonの作者）には最初から明らかだったかも）  
+
+**15. Now is better than never.**  
+「いつか」より「今」。  
+
+**16. Although never is often better than *right* now.**  
+でも「今すぐ」は時に危険。冷静に。  
+
+**17. If the implementation is hard to explain, it’s a bad idea.**  
+説明しづらい実装は悪い設計。  
+
+**18. If the implementation is easy to explain, it may be a good idea.**  
+説明しやすい実装は良い設計かも。  
+
+**19. Namespaces are one honking great idea — let’s do more of those!**  
+名前空間は最高のアイデアだ。どんどん活用しよう！
+
+---
+💡 **まとめ:**  
+> 読みやすく、シンプルに、美しく。  
+> 「他の人が読んでもすぐ理解できるコード」を目指そう。
