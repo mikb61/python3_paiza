@@ -96,11 +96,84 @@ dtype: int64
 
 
 ⭐️Seriesの属性
+
+# index属性
 import pandas as pd
 
 s = pd.Series({"a": 3, "b": 1, "c": 2})
 print(s.index)  # インデックスの取得
+→
+Index(['a', 'b', 'c'], dtype='object')
+
 s.index = ["d", "e", "f"]  # インデックスの書き換え
+→
+d    3
+e    1
+f    2
+dtype: int64
+
+s = pd.Series([3, 1, 2]) 
+print(s)
+→ ラベルがない場合、0から順番に整数が振られる
+0    3
+1    1
+2    2
+dtype: int64
 
 s = pd.Series([3, 1, 2]) 
 print(s.index)  # RangeIndex
+→
+RangeIndex(start=0, stop=3, step=1)
+
+# name属性
+import pandas as pd
+
+s = pd.Series([3, 1, 2], name="nums")
+print(s.name)  # 名前の取得
+→ nums
+
+new_s = s.rename("values")  # 名前の付け替え
+print(new_s)  # 名前の取得
+→ values
+
+s.rename("values", inplace=True)  # sそのものの名前の変更
+print(s)
+→
+0    3
+1    1
+2    2
+Name: values, dtype: int64
+
+s.index.name = "chars"  # インデックスのname属性を指定
+print(s)
+→
+chars
+0    3
+1    1
+2    2
+Name: nums, dtype: int64
+
+
+# dtype属性
+
+import pandas as pd
+
+s = pd.Series([3, 1, 2], name="nums")
+print(s.dtype)  # dtypeの取得
+→
+int64
+
+print(s)
+→
+0    3
+1    1
+2    2
+Name: nums, dtype: int64
+
+s = pd.Series([3, 1, 2], name="nums", dtype="float64")  # dtypeを指定
+print(s)
+→
+0    3.0
+1    1.0
+2    2.0
+Name: nums, dtype: float64
