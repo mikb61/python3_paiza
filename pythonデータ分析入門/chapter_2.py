@@ -275,3 +275,50 @@ print(df)
 a  3.0  pizza
 b  1.0    NaN
 c  NaN  daiza
+
+
+⭐️スライシング
+
+import pandas as pd
+
+s = pd.Series({"a": 3, "b": 1})
+t = pd.Series({"a": "paiza", "c": "daiza"})
+u = pd.Series({"b": True})
+df = pd.DataFrame({"num": s, "string": t, "bool": u})
+
+   num string  bool
+a  3.0  paiza   NaN
+b  1.0    NaN  True
+c  NaN  daiza   NaN
+
+# 行に関するスライシング
+print(df["b":"c"])
+print(df[1:3])  # 整数インデックス
+→
+   num string  bool
+b  1.0    NaN  True
+c  NaN  daiza   NaN
+
+# 列に関するスライシング
+print(df.loc[:, "string":])
+→
+  string  bool
+a  paiza   NaN
+b    NaN  True
+c  daiza   NaN
+
+# 行と列を同時にスライシング
+print(df.loc[:"b", "string":])
+→
+  string  bool
+a  paiza   NaN
+b    NaN  True
+
+
+# locとilocによる個別の行・列指定
+print(df.loc[["a", "c"], ["num", "bool"]])
+print(df.iloc[[0, 2], [0, 2]])
+→
+   num bool
+a  3.0  NaN
+c  NaN  NaN
