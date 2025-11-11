@@ -322,3 +322,49 @@ print(df.iloc[[0, 2], [0, 2]])
    num bool
 a  3.0  NaN
 c  NaN  NaN
+
+
+⭐️更新・追加・削除
+import pandas as pd
+
+s = pd.Series({"a": 3, "b": 1})
+t = pd.Series({"a": "paiza", "c": "daiza"})
+df = pd.DataFrame({"num": s, "string": t})
+
+   num string
+a  3.0  paiza
+b  1.0    NaN
+c  NaN  daiza
+
+
+# 更新
+df["num"] = pd.Series({"a": 300, "b": 100})
+     num string
+a  300.0  paiza
+b  100.0    NaN
+c    NaN  daiza
+
+# シリーズで列の追加
+df["bool"] = pd.Series({"b": True})
+   num string  bool
+a  3.0  paiza   NaN
+b  1.0    NaN  True
+c  NaN  daiza   NaN
+
+# スカラーで列の追加
+df["bool"] = False
+   num string   bool
+a  3.0  paiza  False
+b  1.0    NaN  False
+c  NaN  daiza  False
+
+# loc属性で行の追加
+df.loc["d"] = pd.Series({"num": 813, "string": "pizza"})
+     num string
+a    3.0  paiza
+b    1.0    NaN
+c    NaN  daiza
+d  813.0  pizza
+
+# appendメソッドで行の追加
+print(df.append(pd.Series({"num": 813, "string": "pizza"}, name="d")))
