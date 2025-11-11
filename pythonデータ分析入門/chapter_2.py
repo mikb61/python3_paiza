@@ -366,5 +366,112 @@ b    1.0    NaN
 c    NaN  daiza
 d  813.0  pizza
 
-# appendメソッドで行の追加
-print(df.append(pd.Series({"num": 813, "string": "pizza"}, name="d")))
+
+# concatメソッドで行・列の追加
+print(pd.concat([df, pd.DataFrame({"num": 813, "string": "paiza", "bool": True}, index = ["d"])]))
+     num string  bool
+a    3.0  paiza   NaN
+b    1.0    NaN   NaN
+c    NaN  daiza   NaN
+d  813.0  paiza  True
+
+
+# 列の削除
+del df["string"]　 # delメソッド
+
+print(df.pop("string"))  # popメソッド
+a    paiza
+b      NaN
+c    daiza
+Name: string, dtype: object
+
+print(df)
+   num  bool
+a  3.0   NaN
+b  1.0  True
+c  NaN   NaN
+
+# 列の削除(dropメソッド）
+print(df.drop("string", axis=1))
+
+   num  bool
+a  3.0   NaN
+b  1.0  True
+c  NaN   NaN
+
+
+# 行の削除(dropメソッド）
+print(df.drop("a"))
+   num string  bool
+b  1.0    NaN  True
+c  NaN  daiza   NaN
+
+
+・pandas.DataFrameのdropメソッドは引数でinplace=TrueとすることでもとのDataFrameに変更を加えるようになる（この際、メソッドの返り値はNoneになる）
+・inplace引数とaxis引数を組み合わせれば行・列の削除に関する操作をdropメソッドで統一的におこなうことができる
+
+
+⭐️DataFrame同士の演算
+import pandas as pd
+
+
+df1 = pd.DataFrame({"num": {"a": 1, "b": 2, "d": 4},
+                    "string": {"a": "paiza", "d": "daiza"}})
+   num string
+a    1  paiza
+b    2    NaN
+d    4  daiza
+
+df2 = pd.DataFrame({"num": {"a": 10, "c": 30, "d": 40},
+                    "name": {"c": "pizza", "d": ".io"}})
+   num   name
+a   10    NaN
+c   30  pizza
+d   40    .io
+
+print(df1 + df2)
+   name   num  string
+a   NaN  11.0     NaN
+b   NaN   NaN     NaN
+c   NaN   NaN     NaN
+d   NaN  44.0     NaN
+
+print(df1 * 2)
+   num      string
+a    2  paizapaiza
+b    4         NaN
+d    8  daizadaiza
+
+
+⭐️フィルタリング
+import pandas as pd
+
+s = pd.Series({"a": 3, "b": 1})
+t = pd.Series({"a": "paiza", "c": "daiza"})
+df = pd.DataFrame({"num": s, "string": t})
+   num string
+a  3.0  paiza
+b  1.0    NaN
+c  NaN  daiza
+
+# ブール値のSeriesによるフィルタリング
+print(df[df["num"] > 2])
+
+# queryメソッドによるフィルタリング
+print(df.query("num > 2"))
+
+   num string
+a  3.0  paiza
+
+🧩 クエリとは？
+	•	定義：データベースやデータセットに対して「こういう条件でデータを取り出したい」と命令すること
+	•	目的：必要な情報だけを取り出したり、集計したり、更新したりする
+
+print(df.query("num > 2 or string == 'daiza'"))
+
+s = "daiza"
+print(df.query("num > 2 or string == @s"))
+
+num string
+a  3.0  paiza
+c  NaN  daiza
