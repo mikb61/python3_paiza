@@ -475,3 +475,51 @@ print(df.query("num > 2 or string == @s"))
 num string
 a  3.0  paiza
 c  NaN  daiza
+
+
+⭐️ソート
+import pandas as pd
+
+s = [3, 1, 2]
+t = ["paiza", "daiza", "pizza"]
+df = pd.DataFrame({"string": t, "num": s}, index=["c", "a", "b"])
+  string  num
+c  paiza    3
+a  daiza    1
+b  pizza    2
+
+print(df.sort_index())  # 行の昇順
+  string  num
+a  daiza    1
+b  pizza    2
+c  paiza    3
+
+print(df.sort_index(ascending=False))  # 行の降順
+  string  num
+c  paiza    3
+b  pizza    2
+a  daiza    1
+
+print(df.sort_index())  # 列の昇順
+   num string
+c    3  paiza
+a    1  daiza
+b    2  pizza
+
+print(df.sort_index(ascending=False))  # 列の降順
+  string  num
+c  paiza    3
+a  daiza    1
+b  pizza    2
+
+print(df.sort_values(by="num"))  # 値の昇順
+  string  num
+a  daiza    1
+b  pizza    2
+c  paiza    3
+
+print(df.sort_values(by="num", ascending=False))  # 値の降順
+  string  num
+c  paiza    3
+b  pizza    2
+a  daiza    1
