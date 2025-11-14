@@ -132,3 +132,53 @@ finally:
 	•	except：例外が発生した場合の処理
 	•	else：例外が発生しなかった場合の処理
 	•	finally：必ず実行される処理（後片付けなどに使う）
+
+
+----------------------chapiとの練習問題
+class Account:
+    def __init__(self, balance=0):
+        self._balance = balance
+
+    @property
+    def balance(self):
+        print("Base getter called")
+        return self._balance
+
+    @balance.setter
+    def balance(self, amount):
+        print("Base setter called")
+        if amount < 0:
+            raise ValueError("Cannot set negative balance")
+        self._balance = amount
+
+class Savings(Account):
+    @property
+    def balance(self):
+        print("Child getter called")
+        # 利息 10 を付けて返す
+        return super().balance + 10
+
+    @Account.balance.setter
+    def balance(self, amount):
+        print("Child setter called")
+        if amount > 1000:
+            raise ValueError("Too high balance")
+        super(Savings, Savings).balance.__set__(self, amount)
+
+    try:
+        account.balance += amount
+    except ValueError as e:
+        print("Error:", e)
+
+def withdraw(account, amount):
+    try:
+        account.balance -= amount
+    except ValueError as e:
+        print("Error:", e)
+
+# 実行
+s = Savings()
+deposit(s, 500)
+withdraw(s, 600)
+deposit(s, 2000)
+print(s.balance)
