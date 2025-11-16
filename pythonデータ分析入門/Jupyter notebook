@@ -1,0 +1,231 @@
+⭐️Jupyter Notebook
+
+ターミナルでpip3 install notebook
+jupyter notebook
+で開く〜！
+
+概要
+	•	ウェブブラウザ上で Python コードを実行できる対話型環境
+	•	コードの実行、グラフの表示、Markdownによる説明の記述が同じノート上で可能
+	•	データ分析・機械学習の学習や実験でよく使われる
+
+主な特徴
+	1.	セル単位で実行
+	•	コードセル：Pythonコードを記述して実行
+	•	Markdownセル：文章や数式、画像などの説明を記述
+	2.	結果の即時表示
+	•	コードを実行すると、その場で出力やグラフが確認できる
+	3.	変数・ライブラリの共有
+	•	同じノート内で定義した変数やインポートしたライブラリは別セルからも使用可能
+	4.	豊富な拡張
+	•	matplotlib, seaborn, pandas, numpy などの科学計算ライブラリと相性が良い
+	•	拡張機能（JupyterLab, nbextensions）で機能追加可能
+
+基本操作
+	•	セルの作成：Insert → Insert Cell Below/Above
+	•	セルの実行：セル選択 → Shift + Enter
+	•	セルの種類変更：Code / Markdown
+	•	ノートの保存：File → Save and Checkpoint
+	•	カーネルの再起動：Kernel → Restart（全変数リセット）
+
+# Jupyter Notebook 便利ショートカット
+
+## モード
+- **編集モード**（セル内で文字編集）: Enter
+- **コマンドモード**（セル操作）: Esc
+
+---
+
+## コマンドモード（Esc後）ショートカット
+| キー | 動作 |
+|------|------|
+| A    | 上にセルを挿入 |
+| B    | 下にセルを挿入 |
+| X    | セルをカット |
+| C    | セルをコピー |
+| V    | セルをペースト |
+| D, D | セルを削除（Dを2回） |
+| Z    | セル削除を元に戻す |
+| M    | セルをMarkdownに変更 |
+| Y    | セルをコードに変更 |
+| Shift + ↑ / ↓ | 複数セルを選択 |
+| Ctrl + S | 保存 |
+| Shift + M | 選択セルを結合 |
+| Ctrl + Shift + - | セルを分割 |
+
+---
+
+## 編集モード（Enter後）ショートカット
+| キー | 動作 |
+|------|------|
+| Ctrl + Enter | セルを実行 |
+| Shift + Enter | セルを実行して下に移動 |
+| Alt + Enter | セルを実行して下に新規セル作成 |
+| Ctrl + / | コメント切替 |
+| Tab  | オートコンプリート / インデント |
+| Shift + Tab | 関数や変数のヘルプ表示（1回） |
+| Ctrl + Shift + - | カーソル位置でセルを分割 |
+
+---
+
+## その他便利機能
+- Markdownセルで `#` → 見出し、`**太字**` → 太字、`*斜体*` → 斜体
+- LaTeX 数式: `$...$` 内に記述
+- `%time` や `%timeit` で処理時間測定
+- `%matplotlib inline` でグラフをノート内表示
+
+
+# Jupyter Notebook × pandas 便利まとめ（1ページ版）
+
+```python
+# ========================
+# 1. 基本インポート
+# ========================
+import pandas as pd
+import numpy as np  # 必要に応じて
+
+# ========================
+# 2. データ読み込み
+# ========================
+df_csv  = pd.read_csv("data.csv")
+df_xls  = pd.read_excel("data.xlsx", sheet_name="Sheet1")
+df_json = pd.read_json("data.json")
+
+# ========================
+# 3. データ確認
+# ========================
+df.head()        # 先頭5行
+df.tail(10)      # 末尾10行
+df.shape         # (行,列)
+df.info()        # データ型・欠損確認
+df.describe()    # 数値列統計量
+df.columns       # 列名一覧
+df.index         # 行ラベル一覧
+
+# ========================
+# 4. データアクセス
+# ========================
+df["列名"]         # 単列
+df[["列1","列2"]]  # 複数列
+df.iloc[0]          # 行番号で取得
+df.iloc[0:5]        # 複数行
+df.loc[0]           # ラベルで取得
+df.loc[0:5, ["列1","列2"]] # 行と列を同時に指定
+
+# ========================
+# 5. 条件抽出
+# ========================
+df[df["列名"] > 100]
+df[(df["列1"]>50) & (df["列2"]<200)]
+
+# ========================
+# 6. 列の追加・計算
+# ========================
+df["新列"] = df["列1"] + df["列2"]
+df["列名"].apply(lambda x: x*2)
+
+# ========================
+# 7. 並び替え・ソート
+# ========================
+df.sort_values("列名", ascending=True)
+df.sort_values(["列1","列2"], ascending=[True, False])
+
+# ========================
+# 8. 集計・統計
+# ========================
+df["列名"].mean()
+df["列名"].sum()
+df["列名"].value_counts()
+df.groupby("列1")["列2"].sum()
+df.pivot_table(index="列1", columns="列2", values="列3", aggfunc="sum")
+
+# ========================
+# 9. 欠損値処理
+# ========================
+df.isnull()
+df.dropna()
+df.fillna(0)
+
+# ========================
+# 10. データ書き出し
+# ========================
+df.to_csv("output.csv", index=False)
+df.to_excel("output.xlsx", index=False)
+df.to_json("output.json", orient="records")
+
+# ========================
+# 11. Jupyter Notebook便利ショートカット
+# ========================
+# Ctrl + Enter    : セル実行
+# Shift + Enter   : セル実行後に次のセルへ移動
+# Alt + Enter     : セル実行後に新しいセルを作成
+# Esc + A         : 上にセル追加
+# Esc + B         : 下にセル追加
+# Esc + D + D     : セル削除
+# Ctrl + Shift + -: セル分割
+# M               : セルをMarkdownに変更
+# Y               : セルをCodeに変更
+# Tab             : 補完
+# Shift + Tab     : 関数のヘルプ表示
+
+
+
+# 特定行をスキップ
+skiprows引数に行番号（0始まり）のリストを渡すとそれらの番号の行をスキップして読み込む。
+
+import pandas as pd
+
+students5 = pd.read_csv("csv/sample5.csv", skiprows=[2, 5])
+students5
+
+# 特定の文字以降をコメント扱いする
+1行のうち、comment引数で指定された文字以降はコメント扱いされ、読み込みの際に無視される。
+
+students6 = pd.read_csv("csv/sample6.csv", comment="#")
+students6
+
+# 列に関数を適用しながら読み込む
+converters引数に、関数を適用したい列名をキー、その列に適用したい関数を値とする辞書を渡す。
+
+students7 = pd.read_csv("csv/sample.csv", converters={"name":  lambda s: s.capitalize()})
+students7
+
+
+# ファイルの冒頭数業のみを読み込む
+import pandas as pd
+
+df = pd.read_csv("csv/long.csv", nrows=5)
+
+# ファイルを数行ごとに区切って読み込みながら各部分における平均を求める
+chunks = pd.read_csv("csv/long.csv", chunksize=10)
+for chunk in chunks:
+    print(chunk["num"].mean()) 
+
+	•	chunk = データの塊・まとまり
+	•	大きなデータを小さく分けて扱うときに使う
+	•	pandas だと chunksize がよく出てくる
+
+
+
+
+⭐️ DataFrameのCSVファイルへの書き出し
+import pandas as pd
+
+mydf = pd.DataFrame({"a": {0: 10, 1: 20}, "b": {0: 30, 1: 40}})
+mydf.to_csv("csv/mydf.csv")
+
+# 区切り文字と欠損値の表示を設定
+mydf2 = pd.DataFrame({"a": {0: float("nan"), 1: 20}, "b": {0: 30, 1: 40}})
+mydf2.to_csv("csv/mydf2.csv", sep=" ", na_rep="deleted")
+
+# ヘッダとインデックスを書き出さない
+mydf.to_csv("csv/mydf3.csv", header=False, index=False)
+
+# 特定行のみの書き出し
+mydf.to_csv("csv/mydf4.csv", columns=["b"])
+
+# CSV以外の読み書きメソッド
+pandas.read_json()
+pandas.DataFrame.to_json()
+pandas.read_excel()
+pandas.DataFrame.to_excel()
