@@ -229,3 +229,303 @@ pandas.read_json()
 pandas.DataFrame.to_json()
 pandas.read_excel()
 pandas.DataFrame.to_excel()
+
+
+⭐️　Pandas グラフ描画メソッドまとめ
+
+| メソッド | 内容 | 主なオプション例 |
+|---------|-------|----------------|
+| df.plot() | 折れ線グラフ（デフォルト） | figsize=(), title="", grid=True |
+| df.plot.line() | 折れ線グラフ（明示指定） | linestyle="-", marker="o" |
+| df.plot.bar() | 縦棒グラフ | stacked=True, color= |
+| df.plot.barh() | 横棒グラフ | stacked=True |
+| df.plot.hist() | ヒストグラム | bins=10, alpha=0.5 |
+| df.plot.box() | 箱ひげ図 | vert=True |
+| df.plot.area() | 面グラフ | stacked=True |
+| df.plot.pie() | 円グラフ | autopct="%1.1f%%", legend=False |
+| df.plot.scatter(x, y) | 散布図 | s=サイズ, c=色 |
+| df.plot.hexbin(x, y) | Hexbin図 | gridsize=25 |
+| df.plot.kde() | カーネル密度推定 | bw_method= |
+
+## 🔧 描画共通オプション
+| オプション | 説明 |
+|-----------|------|
+| figsize=(8,5) | グラフサイズ |
+| title="タイトル" | タイトル |
+| grid=True | グリッド表示 |
+| legend=True/False | 凡例表示 |
+| color="red" | 色指定 |
+| xlabel="X軸名", ylabel="Y軸名" | 軸ラベル設定 |
+
+## 📝 使用例サンプル
+```python
+import pandas as pd
+
+df = pd.DataFrame({
+    "A":[1,3,2,4],
+    "B":[4,5,3,6]
+})
+
+df.plot(figsize=(8,5), title="折れ線グラフ")
+df.plot.bar(stacked=True)
+df.plot.barh()
+df.plot.hist(bins=5)
+df.plot.scatter(x="A", y="B")
+
+⭐️ データ可視化用ライブラリであるmatplotlibを用いたグラフ描画
+
+import pandas as pd
+import matplotlib.pyplot as plt  # matplotlibのインポート　※標準ライブラリではないので！
+
+# 🎨 Matplotlib グラフ描画まとめ（完全版・一括コピペOK）
+
+## 📌 基本構文
+import matplotlib.pyplot as plt
+plt.plot(x, y)
+plt.show()
+
+---
+
+## 📊 グラフ種類 & 代表メソッド一覧
+
+| メソッド | グラフ種類 | 主なオプション例 |
+|----------|------------|----------------|
+| plt.plot(x, y) | 折れ線グラフ | marker, linestyle, linewidth |
+| plt.bar(x, y) | 縦棒グラフ | width |
+| plt.barh(x, y) | 横棒グラフ | height |
+| plt.scatter(x, y) | 散布図 | s=点サイズ, alpha |
+| plt.hist(x) | ヒストグラム | bins, range |
+| plt.boxplot(data) | 箱ひげ図 | vert |
+| plt.pie(values) | 円グラフ | labels, autopct |
+| plt.stackplot(x, y1, y2) | 積み上げ面グラフ | labels |
+| plt.fill_between(x, y1, y2) | 塗りつぶし | alpha |
+| plt.errorbar(x, y, yerr=[]) | 誤差棒 | capsize |
+
+---
+
+## ⚙ 共通オプション
+
+| 項目 | コード |
+|-------|-------|
+| タイトル | plt.title("タイトル") |
+| 軸ラベル | plt.xlabel("X軸"), plt.ylabel("Y軸") |
+| 凡例 | plt.legend() |
+| グリッド | plt.grid(True) |
+| 図のサイズ | plt.figure(figsize=(8,5)) |
+| 軸範囲 | plt.xlim(), plt.ylim() |
+| 保存 | plt.savefig("graph.png") |
+
+---
+
+## 📝 折れ線グラフの例
+import matplotlib.pyplot as plt
+x = [1,2,3,4,5]
+y = [1,4,2,5,3]
+
+plt.figure(figsize=(6,4))
+plt.plot(x, y, marker="o", linestyle="--")
+plt.title("折れ線グラフ")
+plt.xlabel("X軸")
+plt.ylabel("Y軸")
+plt.grid(True)
+plt.show()
+
+---
+
+## 🧠 Jupyter Notebook での設定
+%matplotlib inline
+
+➡ Notebook 上にグラフが直接表示される
+
+---
+
+## 📦 Pandas と Matplotlib の比較
+
+| 操作 | Pandas | Matplotlib |
+|-------|--------|------------|
+| 折れ線グラフ | df.plot() | plt.plot(x,y) |
+| 棒グラフ | df.plot.bar() | plt.bar(x,y) |
+| ヒストグラム | df.plot.hist() | plt.hist(x) |
+| 散布図 | df.plot.scatter(x="a", y="b") | plt.scatter(x,y) |
+| 円グラフ | df.plot.pie() | plt.pie(values) |
+
+
+# 複数の折れ線
+
+plt.plot([1, 4, 3, 2, 5], label="one")
+plt.plot([4, 5, 2, 3, 0], label="two")
+plt.legend()
+
+plt.show()
+
+# 積み上げ棒グラフ
+h1 = pd.Series([1, 2, 1, 1, 2])
+h2 = pd.Series([2, 1, 1, 2, 1])
+h3 = pd.Series([6, 2, 1, 1, 2])
+
+plt.bar(range(5), h1, label="one")
+plt.bar(range(5), h2, bottom=h1, label="two")
+plt.bar(range(5), h3, bottom=h1 + h2, label="three")
+plt.legend()
+
+plt.show()
+
+# forループを使う書き方
+h1 = pd.Series([1, 2, 1, 1, 2])
+h2 = pd.Series([2, 1, 1, 2, 1])
+h3 = pd.Series([6, 2, 1, 1, 2])
+
+bottom = pd.Series([0] * 5)
+hs = [(h1, "one"), (h2, "two"), (h3, "three")]
+
+for h, label in hs:
+    plt.bar(range(5),  h, bottom=bottom, label=label)
+    bottom += h
+
+plt.legend()
+plt.show()
+
+
+ーーーーーーーーー
+fig = plt.figure(figsize=(4, 3), dpi=120)
+ax = fig.add_subplot(2, 3, 1)
+ax2 = fig.add_subplot(236)
+
+ax.plot([1, 4, 3, 2, 5])
+ax2.bar(range(5), [1, 4, 3, 2, 5])
+
+plt.show()
+
+👉 1つの Figure を作成
+	•	figsize=(4,3) → サイズ（インチ）
+	•	dpi=120 → 解像度
+👉 Figure の中の位置を指定して 2つの小さなグラフ領域（Axes）を作る
+　　2行 × 3列のグリッドの 1番目の位置に配置
+　　2行 × 3列のグリッドの「6番目」の位置に配置（省略記法 2,3,6）
+🧠 位置イメージ
+　　1 2 3
+　　4 5 6
+👉 左上には折れ線グラフ、右下には棒グラフを描画
+
+折れ線(1)      (2)      (3)
+(4)           (5)       棒グラフ(6)
+
+
+
+
+⭐️ seabornによるグラフ描画
+import pandas as pd
+import seaborn as sns  # seabornをインポート
+
+# Seaborn グラフ描画まとめ
+
+```python
+import seaborn as sns
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# サンプルデータ
+df = pd.DataFrame({
+    "x": [1, 2, 3, 4, 5],
+    "y": [5, 3, 4, 2, 1],
+    "category": ["A", "B", "A", "B", "A"]
+})
+
+# 折れ線グラフ
+sns.lineplot(data=df, x="x", y="y")
+plt.show()
+
+# 棒グラフ（カテゴリ別の集計も可）
+sns.barplot(data=df, x="category", y="y", ci=None)  # ci=Noneでエラーバー非表示
+plt.show()
+
+# ヒストグラム（分布）
+sns.histplot(data=df, x="y", bins=5, kde=False)  # kde=Trueで密度曲線も表示
+plt.show()
+
+
+# 📊 Pandas 計算メソッドまとめ（Jupyter Notebook用）
+
+## 🔢 基本の統計メソッド
+| メソッド | 説明 | 例 |
+|---------|------|----|
+| `sum()` | 合計 | `df['col'].sum()` |
+| `mean()` | 平均 | `df['col'].mean()` |
+| `max()` | 最大値 | `df['col'].max()` |
+| `min()` | 最小値 | `df['col'].min()` |
+| `count()` | 値の数 | `df['col'].count()` |
+| `median()` | 中央値 | `df['col'].median()` |
+| `mode()` | 最頻値 | `df['col'].mode()` |
+| `std()` | 標準偏差 | `df['col'].std()` |
+| `var()` | 分散 | `df['col'].var()` |
+
+---
+
+## 📦 全体の統計まとめ（超便利）
+| メソッド | 説明 | 例 |
+|---------|------|----|
+| `describe()` | 基本統計量のまとめ | `df.describe()` |
+| `info()` | 概要表示（型・欠損数など） | `df.info()` |
+
+---
+
+## 🔍 行・列単位の計算
+| 内容 | 例 |
+|------|----|
+| 列ごとの合計 | `df.sum()` |
+| 行ごとの合計 | `df.sum(axis=1)` |
+| 列ごとの平均 | `df.mean()` |
+| 行ごとの平均 | `df.mean(axis=1)` |
+
+---
+
+## 🎯 条件付き計算
+| 内容 | 例 |
+|------|----|
+| 条件で抽出 | `df[df['sales'] > 100]` |
+| 条件に合う数 | `df[df['sales'] > 100].count()` |
+| 条件で平均 | `df[df['sales'] > 100]['profit'].mean()` |
+
+---
+
+## 🧮 列の追加計算
+| 内容 | 例 |
+|------|----|
+| 四則演算 | `df['price_tax'] = df['price'] * 1.1` |
+| 複数列の計算 | `df['total'] = df['price'] * df['qty']` |
+| 関数で変換 | `df['upper'] = df['name'].str.upper()` |
+
+---
+
+## 🧂 グループ化（GroupBy）
+| 内容 | 例 |
+|------|----|
+| グループ別平均 | `df.groupby('category')['sales'].mean()` |
+| グループ別合計 | `df.groupby('category').sum()` |
+| 複数列集計 | `df.groupby('category')[['sales','profit']].mean()` |
+| 集約 | `df.groupby('category').agg({'sales':'sum','profit':'mean'})` |
+
+---
+
+## 🪄 欠損値処理
+| 内容 | 例 |
+|------|----|
+| 欠損値を平均で埋める | `df['col'].fillna(df['col'].mean(), inplace=True)` |
+| 欠損行を削除 | `df.dropna()` |
+| 欠損チェック | `df.isna().sum()` |
+
+---
+
+### ✔ 簡単動作例
+
+```python
+import pandas as pd
+
+df = pd.DataFrame({
+    'price':[100,200,300],
+    'qty':[1,2,3]
+})
+
+print(df.sum())
+print(df.mean())
+print(df.describe())
